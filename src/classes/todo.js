@@ -1,15 +1,18 @@
 import Check from "./check";
 
 export default class ToDo {
-    #title = new String('');
+    #title = '';
     #priority = {
         value: new Number(5),
-        min: 0,
-        max: 10,
+        min: new Number(0),
+        max: new Number(10),
     };
-    #dueDate = new Date();
+    #date = {
+        created: new FormattedDate(),
+        due: new FormattedDate(),
+    };
     #checks = new Check();
-    #description = new String('');
+    #description = '';
     #isCompleted = new Boolean('false');
 
     get title() {
@@ -17,7 +20,7 @@ export default class ToDo {
     }
 
     set title(string) {
-        this.#title = string.toString();
+        this.#title = string;
     };
 
     get priority() {
@@ -31,12 +34,11 @@ export default class ToDo {
     };
 
     get dueDate() {
-        return this.#dueDate;
+        return this.#date.due.date;
     };
 
     set dueDate(date) {
-        let formattedDate = new Date(date);
-        this.#dueDate = formattedDate.toISOString().split('T')[0];
+        this.#date.due = new FormattedDate(date);
     };
 
     get description() {
@@ -46,4 +48,41 @@ export default class ToDo {
     set description(string) {
         this.#description = string;
     };
+
+    get isCompleted() {
+        return this.#isCompleted;
+    };
+
+    set isCompleted(bool) {
+        this.#isCompleted = bool;
+    };
+
+    get daysLeft() {
+        let current = new FormattedDate();
+        return dateDifference(this.#date.due.date, current.date);
+    };
+
+    get age() {
+        let current = new FormattedDate();
+        return dateDifference(this.#date.created.date, current.date);
+    };
+};
+
+class FormattedDate {
+    constructor(date) {
+        let formattedDate;
+        if (date == undefined) {
+            formattedDate = new Date();
+        }
+        else {
+            formattedDate = new Date(date);
+        };
+        this.date = formattedDate.toISOString().split('T')[0];
+    };
+};
+
+const dateDifference = (date1, date2) => {
+    let timeDiff = Math.abs(new Date(date1) - new Date(date2));
+    let daysDiff = Math.round((timeDiff)/(1000 * 60 * 60 * 24));
+    return daysDiff;
 };
