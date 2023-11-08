@@ -1,4 +1,5 @@
 import Check from "./check";
+import { FormattedDate, dateDifference } from "./date";
 
 export default class ToDo {
     #title = '';
@@ -66,23 +67,4 @@ export default class ToDo {
         let current = new FormattedDate();
         return dateDifference(this.#date.created.date, current.date);
     };
-};
-
-class FormattedDate {
-    constructor(date) {
-        let formattedDate;
-        if (date == undefined) {
-            formattedDate = new Date();
-        }
-        else {
-            formattedDate = new Date(date);
-        };
-        this.date = formattedDate.toISOString().split('T')[0];
-    };
-};
-
-const dateDifference = (date1, date2) => {
-    let timeDiff = Math.abs(new Date(date1) - new Date(date2));
-    let daysDiff = Math.round((timeDiff)/(1000 * 60 * 60 * 24));
-    return daysDiff;
 };
