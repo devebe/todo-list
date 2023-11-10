@@ -25,7 +25,7 @@ export default class ToDo {
     };
 
     get priority() {
-        return this.#priority;
+        return this.#priority.value;
     };
 
     set priority(number) {

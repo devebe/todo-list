@@ -1,16 +1,14 @@
 import './style.css';
 import ToDo from './classes/todo';
+import Project from './classes/project';
+import { ToDoController } from './controllers';
 
-let testToDo = new ToDo();
+const proj1 = new Project('my TodoList');
 
-testToDo.title = 'test';
+const toDoController = new ToDoController(proj1);
 
-testToDo.title = 'rest';
+toDoController.createToDo(proj1, 'watch movie');
+toDoController.createToDo(proj1, 'test code');
+toDoController.deleteToDo(proj1, 'test code');
 
-testToDo.dueDate = '2023-11-11';
-
-console.log(testToDo);
-
-console.log(testToDo.daysLeft);
-
-console.log(testToDo.dueDate);
+console.log(proj1);
