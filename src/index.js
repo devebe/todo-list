@@ -1,18 +1,18 @@
 import './style.css';
 import Project from './classes/project';
-import { ToDoController } from './controllers';
+import { ProjectsController } from './controllers';
 
-const proj1 = new Project('my TodoList');
+const projectsList = new ProjectsController();
 
-const toDoController = new ToDoController(proj1);
+projectsList.create('My first project');
+projectsList.update('My first project', 'name', 'My very first project');
+projectsList.selectedProject = 'My very first project';
+projectsList.toDoController.create('Let us do something');
+projectsList.toDoController.create('Let us do a second thing');
+projectsList.create('My second project');
+projectsList.selectedProject = 'My second project';
+projectsList.toDoController.create('Another thing I need to do')
+projectsList.toDoController.create('Let us do a second thing');
+projectsList.toDoController.update('Another thing I need to do', 'dueDate', '2023-11-19');
 
-toDoController.create('watch movie');
-toDoController.create('test code');
-toDoController.create('test frode');
-toDoController.delete('watch movie');
-toDoController.delete('test code');
-toDoController.read('test frode','dueDate');
-toDoController.update('test frode', 'title', 'test code');
-
-console.log(proj1);
-
+console.log(projectsList.list);

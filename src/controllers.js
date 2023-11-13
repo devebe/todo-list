@@ -8,6 +8,7 @@ export class ToDoController {
 
     #find(toDoName) {
         this.project.list.forEach(toDo => {
+            // rewrite this to use ID instead of name as name can be duplicated
             if (toDo.title == toDoName) {
                 this.index = this.project.list.indexOf(toDo);
             }
@@ -23,12 +24,11 @@ export class ToDoController {
     read(toDoName, key) {
         this.#find(toDoName);
         console.log(this.project.list[this.index][key]);
-    }
+    };
 
     update(toDoName, key, value) {
         this.#find(toDoName);
-        let updateToDo = this.project.list[this.index];
-        updateToDo[key] = value; 
+        this.project.list[this.index][key] = value; 
     };
 
     delete(toDoName) {
@@ -37,18 +37,50 @@ export class ToDoController {
     };
 };
 
-export class ProjectController {
-    #findProject(projectList, projectName) {
-        projectList.forEach(project => {
+export class ProjectsController {
+    #select = '';
+    
+    constructor () {
+        this.list = [];
+    };
+
+    get selectedProject() {
+        return this.#select;
+    }
+
+    set selectedProject(projectName) {
+        this.#find(projectName);
+        this.toDoController = new ToDoController(this.list[this.index]);
+        this.#select = projectName;
+    };
+
+    #find(projectName) {
+        this.list.forEach(project => {
             if (project.name == projectName) {
-                return project;
+                this.index = this.list.indexOf(project);
             };
         });
     };
     
-    createProject(projectName) {
+    create(projectName) {
         let project = new Project(projectName);
         project.name = projectName;
+        this.list.push(project);
+    };
+
+    read(projectName) {
+        this.#find(projectName);
+        console.log(this.list[this.index]);
+    };
+
+    update(projectName, key, value) {
+        this.#find(projectName);
+        this.list[this.index][key] = value;
+    };
+
+    delete(projectName) {
+        this.#find(projectName);
+        this.list.splice(this.index, 1);
     };
 };
 

@@ -2,7 +2,7 @@ import Check from "./check";
 import { FormattedDate, dateDifference } from "./date";
 
 export default class ToDo {
-    #title = '';
+    #title = 'New to-do item';
     #priority = {
         value: new Number(5),
         min: new Number(0),
