@@ -11,7 +11,7 @@ class ToDoController {
             // rewrite this to use ID instead of name as name can be duplicated
             if (toDo.title == toDoName) {
                 this.index = this.project.list.indexOf(toDo);
-            }
+            };
         });
     };
 
