@@ -1,10 +1,10 @@
 import ToDo from "./classes/todo";
 import Project from "./classes/project";
 
-export class ToDoController {
+class ToDoController {
     constructor (project) {
         this.project = project;
-    }
+    };
 
     #find(toDoName) {
         this.project.list.forEach(toDo => {
@@ -46,7 +46,7 @@ export class ProjectsController {
 
     get selectedProject() {
         return this.#select;
-    }
+    };
 
     set selectedProject(projectName) {
         this.#find(projectName);
@@ -83,4 +83,3 @@ export class ProjectsController {
         this.list.splice(this.index, 1);
     };
 };
-
